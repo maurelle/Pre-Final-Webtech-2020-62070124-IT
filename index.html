@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pre-Final</title>
+    <link href="https://fonts.googleapis.com/css2?family=Indie+Flower&family=Pacifico&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Indie+Flower&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Indie+Flower&family=Pacifico&family=Sriracha&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" />
+</head>
+<style>
+    body{
+        font-family: 'Indie Flower', cursive;
+        font-family: 'Pacifico', cursive;
+        font-family: 'Sriracha', cursive;
+        background-color: #242424;    
+    }
+    .card {
+        background-color: #708090;
+        border-style: none;
+        border-radius: 10px;
+        height: 90%;
+        margin-top: 40px;
+        box-shadow: 0 4px 8px 0 #F0F8FF, 0 6px 10px 0 #F0F8FF;
+        padding-top: 4px;
+    }
+    .card-img{
+        width: 100%;
+        text-align: center;
+        border-radius: 10px;
+    }
+    p{
+        margin-bottom: 6%;
+        color: #ADFF2F;
+        font-size: 16pt;
+    }
+    h1 {
+        text-shadow: 2px 2px 5px #FFF68F;
+    }
+    h4 {
+        text-shadow: 2px 2px 5px #FF83FA;
+        font-size: 22pt;
+        
+    }
+    .button {
+        background-color: #4CAF50; /* Green */
+        border: none;
+
+        padding: 16px 32px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        margin: 4px 2px;
+        transition-duration: 0.4s;
+        cursor: pointer;
+    }
+    .button2 {
+        background-color: #008CBA; 
+        color: rgb(255, 255, 255); 
+        border: 2px solid #036281;
+        border-radius: 8px;
+    }
+
+    .button2:hover {
+        background-color: #fa009a;
+        color: rgb(0, 0, 0);
+        box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24),0 17px 50px 0 rgba(0,0,0,0.19);
+    }
+</style>
+<body>
+    <div class="container">
+        
+        <div class="row" id="songg">
+        </div><br>
+    </div>
+
+
+
+    <script>
+        let requestURL = 'ezquiz.json'; 
+        let request = new XMLHttpRequest(); 
+        request.onreadystatechange = function () { 
+            if (request.readyState == 4 && request.status == 200) {             
+                dataReportStatus(JSON.parse(request.responseText));            
+            } }; 
+        request.open("GET", requestURL, true); 
+        request.send(); 
+        
+        function dataReportStatus(data) { 
+            let songlist = document.getElementById("songg");
+            let information = "";
+            for (let i = 0; i < data.tracks.items.length; i++) {
+                information +=
+                    '<div class="col-md-4 mb-4">\
+                        <div class="card">\
+                            <img class="card-img" width="640px" src="' + data.tracks.items[i].album.images[0].url + '">\
+                            <div class="card-body text-center pl-3 pr-3">\
+                                <h4 class="card-title" style="color: #EED2EE;"><b>' + data.tracks.items[i].album.name + '</b></h4>\
+                                <h4 class="card-title" style="color: #EED2EE;"><b>' + "Artist: " + data.tracks.items[i].album.artists[0].name + '</b></h4>\
+                                <h4 class="card-title" style="color: #EED2EE;"><b>' + "Release date: " + data.tracks.items[i].album.release_date + '</b></h4>\
+                                <h4 class="card-title" style="color: #EED2EE;"><b>' + "Avaliable: " + data.tracks.items[i].album.available_markets.length + " countries" + '</b></h4>\   
+                            </div>\
+                        </div>\
+                    </div>'
+            }
+            songlist.getElementById('songg').innerHTML = information;
+        }
+    </script> 
+</body>
+</html>
